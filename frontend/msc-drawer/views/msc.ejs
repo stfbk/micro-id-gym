@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MSC</title>
+    <link href="/css/sequence-diagram.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
+    <script src="/script/webfontloader.js"></script>
+    <script src="/script/snap.svg.js"></script>
+    <script src="/script/underscore.js"></script>
+    <script src="/script/sequence-diagram.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/script/poll.js"></script>
+    <script src="/script/features.js"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  </head>
+  <body onload="poll()">
+    <div id="buttonContainer">
+      <button onclick="clean()" class="btn btn-primary">Clean requests</button>
+      <button id="exportMSC" onclick="exportMSC()" class="btn btn-primary">Export MSC</button>
+      <button id="importMSC" onclick="showImportWindow()" class="btn btn-primary">Import MSC</button>
+      <button onclick="getAllStixData()" class="btn btn-danger"><span class="iconify" data-icon="ic:outline-assignment" data-inline="false"></span> Complete</button>
+      <button onclick="showStixHostPopup()" class="btn btn-danger"><span class="iconify" data-icon="ic:outline-assignment" data-inline="false"></span> Host</button>
+      <button onclick="showStixCustomSearchPopup()" class="btn btn-danger"><span class="iconify" data-icon="ic:outline-assignment" data-inline="false"></span> Custom</button>
+
+
+      <input type="file" id="hiddenImportMSC" accept="application/json" onchange="importMSC(this.files[0])" class="btn btn-primary"/>
+      <input type="hidden" id="sessionId" value="<%= sessionId %>">
+
+
+    </div>
+    <div id="diagram"></div>
+    <div class='alert-toast' style='display:none'>copied</div>
+
+
+    <div id="popup">
+      <h5>Parameters</h5>
+      <p id="popup-param-content"></p>
+      <h5>Body</h5>
+      <div id="popup-body-content"></div>
+    </div>
+    <%- include('messageInfoPopup'); -%>
+    <%- include('searchBox'); -%>
+    <%- include('stixHostPopup'); -%>
+    <%- include('stixCustomSearchPopup'); -%>
+
+    <form id="frmStixSupport" action="<%= process.env.STIX_VISUALIZER_ENDPOINT %>" method="post" target="_blank">
+      <input id="stixParamList" type="hidden" name="paramList" value='' />
+    </form>
+
+
+
+  </body>
+</html>

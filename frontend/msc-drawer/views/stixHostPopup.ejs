@@ -1,0 +1,19 @@
+<div class="stixHostPopup-popup" id="stixHostPopup">
+  <div class="close" onclick="closeStixHostPopup()">x</div>
+
+  <div class="stixHostPopup-container">
+    <div class="form-group">
+      <label for="stixHostName"><h6>Select the host you want the STIX information: </h6></label>
+      <table class="stix-popup-table">
+          <tr class="stix-popup-table">
+            <td style="width: 60%;">
+              <select class="form-control stix-popup-table" id="stixHostName"></select>
+            </td>
+            <td style="width: 30%;">
+              <button onclick="getStixHostData()" class="btn btn-danger align-right">Get STIX</button>
+            </td>
+          </tr>
+      </table>
+    </div>
+  </div>
+</div>

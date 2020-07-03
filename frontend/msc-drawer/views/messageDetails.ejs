@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Message details</title>
+    <link href="/css/sequence-diagram.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
+    <script src="/script/webfontloader.js"></script>
+    <script src="/script/snap.svg.js"></script>
+    <script src="/script/underscore.js"></script>
+    <script src="/script/sequence-diagram.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/script/poll.js"></script>
+    <script src="/script/features.js"></script>
+
+  </head>
+  <body>
+
+
+    <div id="messageDetails">
+      <h5>From: <%= from %> </h5>
+      <h5>To: <%= to %> </h5>
+      <h5>Label: <%= label %> </h5>
+
+      <br />
+
+      <h5>Headers</h5>
+      <% if(headers.length > 0) { %>
+        <table>
+          <tr><th>Name</th><th>Value</th></tr>
+          <% for(i = 0; i < headers.length; i++) { %>
+            <tr>
+              <td class='paramInfoTableName'><%= headers[i].name %></td>
+              <td class='paramInfoTableValue'><%= headers[i].value %></td>
+            </tr>
+          <% } %>
+        </table>
+      <% } else { %>
+        This message does not have any header
+      <% } %>
+
+      <br />
+
+      <h5>Parameters</h5>
+      <% if(params.length > 0) { %>
+        <table>
+          <tr><th>Type</th><th>Name (click <span class="iconify" data-icon="ic:outline-assignment" data-inline="false"></span> for CTI information)</th><th>Value</th></tr>
+          <% for(i = 0; i < params.length; i++) { %>
+            <tr>
+              <td class='paramInfoTableType'><%= decodeURIComponent(params[i].type) %></td>
+              <td class='paramInfoTableName'>
+                <%= decodeURIComponent(params[i].name) %>
+                <a href="" onclick="document.getElementById('frm-<%= decodeURIComponent(params[i].name) %>').submit()">
+                  <span class="iconify" data-icon="ic:outline-assignment" data-inline="false"></span>
+                </a>
+                <form id="frm-<%= decodeURIComponent(params[i].name) %>" action="<%= process.env.STIX_VISUALIZER_ENDPOINT %>" method="post" target="_blank">
+                  <input type="hidden" name="paramList" value='["<%= decodeURIComponent(params[i].name) %>"]' />
+                </form>
+                <% if(params[i].format && params[i].format != "plain") { %>
+                  <br /><i>(decoded in <%= params[i].format %> format)</i>
+                <% } %>
+              </td>
+              <td class='paramInfoTableValue'><%= decodeURIComponent(params[i].value) %></td>
+            </tr>
+          <% } %>
+        </table>
+      <% } else { %>
+        This message does not have any parameters
+      <% } %>
+
+      <br />
+      <br />
+
+      <h5>Body</h5>
+      <div class="message-body">
+      <% if(body.length > 0) { %>
+        <%= decodeURIComponent(body) %>
+      <% } else { %>
+        The body of this message is empty
+      <% } %>
+      </div>
+    </div>
+
+  </body>
+</html>

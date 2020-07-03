@@ -1,0 +1,22 @@
+<div class="stixCustomSearchPopup-popup" id="stixCustomSearchPopup">
+  <div class="close" onclick="closeStixCustomSearchPopup()">x</div>
+
+  <div class="stixCustomSearch-container">
+    <div class="form-group">
+      <label for="stixCustomSearchText">
+        <h6>Insert the value you want to look for into STIX database: </h6>
+        <i>(use the ; to insert more than one value)</i>
+      </label>
+      <table class="stix-popup-table">
+          <tr class="stix-popup-table">
+            <td style="width: 60%;">
+              <input type="text" class="form-control stix-popup-table" id="stixCustomSearchText"></input>
+            </td>
+            <td style="width: 30%;">
+              <button onclick="getStixCustomData()" class="btn btn-danger align-right">Get STIX</button>
+            </td>
+          </tr>
+      </table>
+    </div>
+  </div>
+</div>

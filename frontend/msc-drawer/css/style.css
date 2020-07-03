@@ -1,0 +1,245 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 10px;
+}
+
+input {
+  margin: 5px;
+}
+
+div#popup {
+  display: none;
+  position: absolute;
+  min-width: 600px;
+  max-width: 600px;
+  padding: 10px;
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #1a1a1a;
+  font-size: 70%;
+  border-radius: 5px;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+h3, p {
+  margin: 3px;
+}
+
+#hiddenImportMSC {
+  visibility: hidden;
+}
+
+/* login form centered */
+.text-central {
+  text-align: center;
+  margin-top: 20%;
+  line-height: 24px;
+}
+
+/* msc button positioning */
+#buttonContainer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+
+/* The static popup - hidden by default */
+.messageInfo-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+  background-color: white;
+}
+
+/* Add styles to the static popup container */
+.messageInfo-container {
+  word-break: break-all;
+  min-width: 800px;
+  max-width: 800px;
+  max-height: 500px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 25px;
+}
+
+/* Static popup X to hide it */
+.close {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  cursor: pointer;
+}
+
+/* JSON icon */
+.json-position {
+  float: right;
+  position: absolute;
+  top: 5px;
+  right: 30px;
+}
+
+.iconify {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+
+.jsonCopyIcon {
+  width: 32px;
+  height: 32px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.infoIcon {
+  width: 32px;
+  height: 32px;
+  margin: 5px;
+  cursor: pointer;
+  float: right;
+  position: absolute;
+  top: 5px;
+  right: 64px;
+}
+
+.iconify:active {
+  background-color: #BBBBBB;
+  border-radius: 3px;
+}
+
+/* params table */
+td.params-table{
+  vertical-align: center;
+}
+
+/* toast for alerts */
+.alert-toast {
+    height:20px;
+    height:auto;
+    position:absolute;
+    left:50%;
+    margin-left:-100px;
+    bottom:10px;
+    background-color: #383838;
+    color: #F0F0F0;
+    padding:10px;
+    text-align:center;
+    border-radius: 3px;
+    z-index: 15;
+}
+
+/* search box */
+.search-popup {
+  position: fixed;
+  top: 0;
+  right: 15px;
+  border: 2px solid #f1f1f1;
+  z-index: 9;
+  background-color: white;
+  width: 40%;
+}
+
+#searchBox {
+  margin-top: 10px;
+  width: 80%;
+  margin-left: 10px;
+}
+
+#searchButton {
+  width: 15%;
+}
+
+#search-results {
+  margin-top: 10px;
+  width: 100%;
+  max-height: 300px;
+}
+
+#closeSearchButton {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  float: right;
+}
+
+.searchItemInfo {
+  margin-left: 30px;
+}
+
+/* Add styles to the static popup container */
+.search-container {
+  word-break: break-all;
+  width: 100%;
+  padding-left: 10px;
+}
+
+/* Params table of static popup style */
+
+tr {
+  border: solid 1px black;
+}
+.paramInfoTableType {
+  width: 10%;
+  padding-left: 3px;
+  word-break: break-all;
+}
+.paramInfoTableName {
+  width: 30%;
+  word-break: break-all;
+}
+.paramInfoTableValue {
+  width: 60%;
+  word-break: break-all;
+}
+
+.scrollable-content {
+  overflow: auto;
+}
+
+.search-field-text {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.search-field {
+  margin-right: 15px;
+}
+
+#messageDetails {
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+/* The stix popup (host and custom) - hidden by default */
+.stixHostPopup-popup, .stixCustomSearchPopup-popup {
+  display: none;
+  position: fixed;
+  top: 25%;
+  left: 30%;
+  right: 30%;
+  border: 1px solid #dc3545;
+  z-index: 9;
+  padding: 15px;
+  background-color: #FFDDDD;
+  border-radius: 9px;
+}
+
+.stix-popup-table {
+  width: 100%;
+  padding: 0%;
+  border: none;
+}
+
+.align-right {
+  float: right;
+  margin-right: 10%;
+}
+
+.message-body {
+  word-wrap: break-word;
+}
