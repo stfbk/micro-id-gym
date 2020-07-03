@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  identityprovider:
+    container_name: idp_server
+    build:
+      context: ./idp/SAML/shibboleth
+      args:
+        - idp_version=3.3.3
+        - c_secure_port=8888
+        - c_base_port=8888
+        - c_relaystate_vuln_port=8888
+        - c_relaystate_sanitized_port=8888
+        - c_canonicalization_vuln_port=8888
+        - c_billion_laughs_port=8888
+    ports:
+      - 9443:443
+
+  credential:
+    container_name: ldap_server
+    build:
+      context: ./credential/SAML/ldap
+      args:
+        - testerUsername=mig
+        - testerPassword=mig
+
+  client:
+    container_name: client_server
+    build:
+      context: ./client/SAML/spring
+      args:
+        - c_version=secure
+        - c_port=8888
+        - idp_port=9443
+    ports:
+      - 8888:8888

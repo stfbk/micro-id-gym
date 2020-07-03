@@ -1,0 +1,33 @@
+version: '3'
+services:
+
+  identityprovider:
+    container_name: idp_server
+    build:
+      context: ./idp/OAuth-OIDC/mitreid
+      args:
+        - version=redirect-vuln
+        - idp_port=9000
+        - c_port=8888
+    ports:
+      - 9000:9000
+
+  credential:
+    container_name: db_postgres
+    build:
+      context: ./credential/OAuth-OIDC/mitreid
+      args:
+        - c_port=8888
+        - testerUsername=mig
+        - testerPassword=mig
+
+
+  client:
+    container_name: client_server
+    build:
+      context: ./client/OAuth-OIDC/mitreid
+      args:
+        - idp_port=9000
+        - c_port=8888
+    ports:
+      - 8888:8888

@@ -1,0 +1,2 @@
+JBoss-Product-Release-Name: WildFly Full
+JBoss-Product-Release-Version: 15.0.0.Final

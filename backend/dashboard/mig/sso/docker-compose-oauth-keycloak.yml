@@ -1,0 +1,30 @@
+version: '3'
+services:
+
+  identityprovider:
+    container_name: idp_server
+    build:
+      context: ./idp/OAuth-OIDC/keycloak
+      args:
+        - version=0
+        - idp_port=9000
+        - c_port=8888
+    ports:
+      - 9000:9000
+    depends_on:
+      - db
+
+  db:
+    container_name: db_postgres
+    build:
+      context: ./credential/OAuth-OIDC/keycloak
+
+  client:
+    container_name: client_server
+    build:
+      context: ./client/OAuth-OIDC/keycloak
+      args:
+        - c_port=8888
+        - idp_port=9000
+    ports:
+      - 8888:8888
