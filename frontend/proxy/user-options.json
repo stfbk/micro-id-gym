@@ -1,0 +1,39 @@
+{
+    "user_options":{
+        "extender":{
+            "extensions":[
+                {
+                    "errors":"ui",
+                    "extension_file":"./extension/msc-logger.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"MSC Logger",
+                    "output":"ui"
+                },
+                {
+                    "errors":"ui",
+                    "extension_file":"./extension/oauth-tester.jar",
+                    "extension_type":"java",
+                    "loaded":<oauth-plugin-loaded>,
+                    "name":"OAuth tester",
+                    "output":"ui"
+                },
+                {
+                    "errors":"ui",
+                    "extension_file":"./extension/SAMLChecks.jar",
+                    "extension_type":"java",
+                    "loaded":<saml-plugin-loaded>,
+                    "name":"SAML Checks",
+                    "output":"ui"
+                }
+            ],
+            "settings":{
+                "automatically_reload_extensions_on_startup":true,
+                "automatically_update_bapps_on_startup":true
+            }
+        }
+    },
+    "misc":{
+        "enable_proxy_interception_at_startup":"never"
+    }
+}
