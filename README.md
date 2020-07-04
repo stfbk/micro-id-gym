@@ -11,7 +11,7 @@ Micro-Id-Gym (MIG) aims to assist system administrators and testers in the deplo
 
 ## Dependencies
 
-To be able to run MIG framework you will need to install:
+To be able to run MIG tool you will need to install:
 - [NodeJs](https://nodejs.org/en/download/)
 - [Java](https://www.java.com/it/download/)
 - a browser (Chrome, Firefox)
@@ -20,7 +20,7 @@ To be able to run MIG framework you will need to install:
 
 ## Download
 
-You can download MIG framework by cloning this git repository:
+You can download MIG tool by cloning this git repository:
 
 ```
 git clone https://github.com/stfbk/micro-id-gym/
@@ -40,7 +40,7 @@ Run then the dashboard with the command:
 ```
 node app
 ```
-Visit `localhost:2020` to start using MIG framework webapp.
+Visit `localhost:2020` to start using MIG tool webapp.
 A dashboard for the configuration is presented. Here you can customize the ports where the System Under Test (SUT) and the tools will run.
 At the end of the configuration, click on the button *Download scenario and tools* to generate a folder with the customized SUT and tools.
 Following the instructions provided by the webapp and available also in the `README` file inside the folder, you can run the testing environment.
