@@ -60,7 +60,7 @@ The instructions to use the frontend components are available at the following l
 
 ## Credits
 
-MIG framework exists thanks to the following projects:
+MIG tool exists thanks to the following projects:
 
 - [SAML](https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html)[3]
 - [OAuth](https://tools.ietf.org/html/rfc6749)[2]
