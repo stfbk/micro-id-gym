@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/dashboard.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/script/frontend.js"></script>
+  </head>
+  <body onload="changeIdPSAML(); changeClientSAML();">
+    <div class="container center-align">
+
+      <hr>
+      <h3>Dashboard</h3>
+      <hr>
+
+
+      <div id="mig-tools-conf" class="left-align">
+        <h4>MIG Frontend configuration</h4>
+        <form id="configForm" action="/generate" method="post" enctype="multipart/form-data">
+          <div class="form-group row">
+            <label for="proxyPort" class="col-sm-4 col-form-label">Proxy port:</label>
+            <div class="col-sm-4">
+              <input type="number" min="1024" max="65535" class="form-control" id="proxyPort" name="proxyPort" value="8080">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="webappPort" class="col-sm-4 col-form-label">MSC Drawer port:</label>
+            <div class="col-sm-4">
+              <input type="number" min="1024" max="65535" class="form-control" id="mscPort" name="mscPort" value="5000">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="webappPort" class="col-sm-4 col-form-label">STIX visualizer port:</label>
+            <div class="col-sm-4">
+              <input type="number" min="1024" max="65536" class="form-control" id="stixPort" name="stixPort" value="5555">
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="left-align">
+            <h5>Upload additional tools</h5>
+            <input type="file" id="uploadTool" name="uploadedTool" accept=".jar" multiple><br>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="form-group row left-align">
+          <label for="target" class="col-sm-4 col-form-label">Target:</label>
+          <div class="form-check col-sm-4 col-form-label">
+            <input class="form-check-input" type="radio" name="targetRadio" id="targetWild" value="Wild" onclick="changeTarget()">
+            <label class="form-check-label" for="targetWild">
+              Wild
+            </label>
+          </div>
+          <div class="form-check col-sm-4 col-form-label">
+            <input class="form-check-input" type="radio" name="targetRadio" id="targetSandbox" value="Sandbox" onclick="changeTarget()" checked>
+            <label class="form-check-label" for="targetSandbox">
+              Sandbox
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group row left-align">
+          <label for="protocol" class="col-sm-4 col-form-label">Protocol:</label>
+          <div class="col-sm-4">
+            <select id="protocol" name="protocol" onchange="changeProtocol()" class="form-control">
+              <option value="saml" selected>SAML</option>
+              <option value="oauth">OAuth/OIDC</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row left-align">
+          <label for="migScenarioName" class="col-sm-4 col-form-label">Scenario name:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="migScenarioName" name="migScenarioName" value="my-test-scenario" required>
+          </div>
+        </div>
+
+        <div class="form-group row center-align" id="sandboxContainerChoice">
+          <div class="form-check col-sm-6 col-form-label">
+            <input class="form-check-input" type="radio" name="sandboxType" id="createIdm" value="Create IdM" onclick="changeSandboxType()" checked>
+            <label class="form-check-label" for="createIdm">
+              Create IdM
+            </label>
+          </div>
+          <div class="form-check col-sm-6 col-form-label">
+            <input class="form-check-input" type="radio" name="sandboxType" id="uploadIdm" value="Upload IdM" onclick="changeSandboxType()">
+            <label class="form-check-label" for="uploadIdm">
+              Upload IdM
+            </label>
+          </div>
+        </div>
+
+        <hr>
+
+        <div id="sutUpload" class="left-align">
+          <div class="left-align">
+            <h5>Upload custom IdM system</h5>
+            <input type="file" id="uploadIdM" name="uploadedIdM" accept=".zip" required><br>
+          </div>
+          <hr>
+        </div>
+
+        <div id="sutCreate" class="left-align">
+          <h4>IdM system configuration</h4>
+
+
+          <div class="form-group row">
+            <label for="idpVersion" class="col-sm-4 col-form-label">IdP:</label>
+            <div class="col-sm-8">
+              <select id="idpSAMLVersion" name="idpVersion" class="form-control" onchange="changeIdPSAML()">
+                <option value="3.3.3">Shibboleth IdP - 3.3.3</option>
+                <option selected value="3.3.3-sanitized">Shibboleth IdP - 3.3.3 with RelayState sanitization</option>
+                <option value="3.3.2">Shibboleth IdP - 3.3.2</option>
+                <option value="3.3.1">Shibboleth IdP - 3.3.1</option>
+                <option value="3.3.0">Shibboleth IdP - 3.3.0</option>
+                <option value="3.2.1">Shibboleth IdP - 3.2.1</option>
+                <option value="3.2.0">Shibboleth IdP - 3.2.0</option>
+              </select>
+              <select id="idpOAuthVersion" name="idpVersion" class="form-control" onchange="changeIdPOAuth()">
+                <option selected value="secure">MITREid IdP 1.3.3 with redirect_uri validation</option>
+                <option value="redirect-vuln">MITREid IdP 1.3.3 without redirect_uri validation</option>
+                <option value="0">Keycloak IdP 10.0.1 with redirect_uri validation</option>
+                <option value="1">Keycloak IdP 10.0.1 without redirect_uri validation</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4 col-form-label">
+              <label>IdP URL: </label>
+            </div>
+            <div class="col-sm-4 col-form-label">
+              <input type="text" class="form-control" id="idpHostname" name="idpHostname" value="identityprovider" disabled>
+            </div>
+            <div class="col-sm-1 col-form-label">
+              :
+            </div>
+            <div class="col-sm-3 col-form-label">
+              <input type="number" min="1024" max="65535" class="form-control" id="idpPort" name="idpPort" value="9443">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="clientVersion" class="col-sm-4 col-form-label">Client:</label>
+            <div class="col-sm-8">
+              <select id="clientSAMLVersion" name="clientVersion" class="form-control" onchange="changeClientSAML()">
+                <option value="secure">Java Spring SP with XML parser that omits comments and XML External Entities</option>
+                <option value="relaystate-vuln">Java Spring SP without RelayState sanitization</option>
+                <option value="relaystate-sanitized">Java Spring SP with RelayState sanitization</option>
+                <option selected value="canonicalization-vuln">Java Spring SP with XML parser that does not omit comments</option>
+                <option value="billion-laughs">Java Spring SP with XML parser that accepts XML External Entities</option>
+              </select>
+              <select id="clientOAuthVersion" name="clientVersion" class="form-control">
+                <option selected value="mitreid">MITREid client webapp</option>
+                <option value="keycloak">Keycloak client webapp</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4 col-form-label">
+              <label>Client URL: </label>
+            </div>
+            <div class="col-sm-4 col-form-label">
+              <input type="text" class="form-control" id="clientHostname" name="clientHostname" value="client" disabled>
+            </div>
+            <div class="col-sm-1 col-form-label">
+              :
+            </div>
+            <div class="col-sm-3 col-form-label">
+              <input type="number" min="1024" max="65536" class="form-control" id="clientPort" name="clientPort" value="8001">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4 col-form-label">
+              Attacks:
+            </div>
+            <div class="col-sm-8">
+              <h4>
+              <span id="badge-xss" class="badge badge-pill badge-danger">XSS</span>
+              <span id="badge-billion-laughs" class="badge badge-pill badge-danger">Billion Laughs</span>
+              <span id="badge-impersonification" class="badge badge-pill badge-danger">Impersonification</span>
+              <span id="badge-csrf" class="badge badge-pill badge-danger">CSRF</span>
+              <span id="badge-unknown" class="badge badge-pill badge-warning">Unknown</span>
+            </h4>
+            </div>
+          </div>
+
+
+          <h6 class="dashboard">Tester credentials</h6>
+          <div class="form-group row">
+            <label for="testerUsername" class="col-sm-4 col-form-label">Username:</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="testerUsername" name="testerUsername" placeholder="username" value="user">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="testerPassword" class="col-sm-4 col-form-label">Password:</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="testerPassword" name="testerPassword" placeholder="password" value="password">
+            </div>
+          </div>
+          <hr>
+        </div>
+
+        <div class="center-align">
+          <div id="submitButton" class="btn btn-primary" onclick="generateZip()">
+            <span id="submitText">Download<span>
+          </div>
+          <div class="spinner" id="loadingSpinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </body>
+</html>
