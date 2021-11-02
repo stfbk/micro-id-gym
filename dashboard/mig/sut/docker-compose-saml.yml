@@ -12,7 +12,8 @@ services:
         - c_relaystate_vuln_port=8888
         - c_relaystate_sanitized_port=8888
         - c_canonicalization_vuln_port=8888
-        - c_billion_laughs_port=8888
+        - c_billion_laughs_vuln_port=8888
+
     ports:
       - 9443:443
 

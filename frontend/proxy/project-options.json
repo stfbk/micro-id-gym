@@ -178,7 +178,7 @@
         "intercept_client_requests":{
             "automatically_fix_missing_or_superfluous_new_lines_at_end_of_request":false,
             "automatically_update_content_length_header_when_the_request_is_edited":true,
-            "do_intercept":false,
+            "do_intercept":true,
             "rules":[
                 {
                     "boolean_operator":"and",
@@ -210,7 +210,7 @@
         },
         "intercept_server_responses":{
             "automatically_update_content_length_header_when_the_response_is_edited":true,
-            "do_intercept":false,
+            "do_intercept":true,
             "rules":[
                 {
                     "boolean_operator":"or",

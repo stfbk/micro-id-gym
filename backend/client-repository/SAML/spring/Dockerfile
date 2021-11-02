@@ -8,15 +8,16 @@ FROM ubuntu:16.04
 	#canonicalization-vuln -> version vulnerable to canonicalization attack
 	#billion-laughs-vuln -> version vulnerable to billion laughs attack
 
+RUN apt-get update && apt-get install -y default-jdk nano unzip curl
+
 ARG c_version
 ARG c_port
 ARG idp_port
 
 ENV C_PORT=$c_port
 ENV IDP_PORT=$idp_port
+ENV C_VERSION=$c_version
 
-RUN apt-get update
-RUN apt-get install -y default-jdk nano unzip curl
 
 COPY src/spring-security-saml-sp-1.0-$c_version.jar /spring-security-saml-sp-1.0.jar
 COPY ssl/keystore.jks /keystore.jks

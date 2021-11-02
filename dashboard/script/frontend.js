@@ -116,8 +116,8 @@ function fillClientSAMLAttack(clientName, selected) {
     case "canonicalization-vuln":
       displayAttack("impersonification", selected);
       break;
-    case "billion-laughs":
-      displayAttack("billion-laughs", selected);
+    case "billion-laughs-vuln":
+      displayAttack("billion-laughs-vuln", selected);
       break;
   }
 }

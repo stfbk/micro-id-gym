@@ -12,6 +12,14 @@
                 },
                 {
                     "errors":"ui",
+                    "extension_file":"./extension/EsPReSSO-3.3.1-jar-with-dependencies.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"EsPReSSO",
+                    "output":"ui"
+                },
+                {
+                    "errors":"ui",
                     "extension_file":"./extension/oauth-tester.jar",
                     "extension_type":"java",
                     "loaded":<oauth-plugin-loaded>,

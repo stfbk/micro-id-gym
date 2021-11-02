@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
+const path = require('path');
 var fs = require("fs");
 
 const stixController = require('./controllers/stix.js');
@@ -15,8 +16,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('views', [__dirname + '/views', __dirname + '/visualizer']);
 app.use('/', express.static('visualizer'));
 app.set('view engine', 'ejs');
-app.use('/temp', express.static('temp'));
+//app.use('/temp', express.static('temp'));
 
+app.use('/temp', express.static(path.join('/','usr','src','temp')));
 
 
 

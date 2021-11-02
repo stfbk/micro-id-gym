@@ -15,5 +15,6 @@ RUN touch /usr/src/app/.env
   # setup server port
 RUN echo "SERVER_PORT="$SERVER_PORT_ENV >> /usr/src/app/.env
 
+RUN mkdir -p /usr/src/temp/
 
 CMD ["node", "app"]

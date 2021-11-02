@@ -8,13 +8,14 @@ FROM ubuntu:16.04
 	#		shibboleth-identity-provider-3.2.1 -> vulnerable version of IdP. It does not perform RelayState value sanitization
 	#		shibboleth-identity-provider-3.3.3 -> secure version of IdP. It performs sanitization of the RelayState before sending it back with the SAMLResponse to the C
 
+
 ARG idp_version
 ARG c_secure_port
 ARG c_base_port
 ARG c_relaystate_vuln_port
 ARG c_relaystate_sanitized_port
 ARG c_canonicalization_vuln_port
-ARG c_billion_laughs_port
+ARG c_billion_laughs_vuln_port
 
 ENV SHIB_VERSION=shibboleth-identity-provider-$idp_version
 ENV C_SECURE_PORT=$c_secure_port
@@ -22,10 +23,14 @@ ENV C_BASE_PORT=$c_base_port
 ENV C_RELAYSTATE_VULN_PORT=$c_relaystate_vuln_port
 ENV C_RELAYSTATE_SANITIZED_PORT=$c_relaystate_sanitized_port
 ENV C_CANONICALIZATION_PORT=$c_canonicalization_vuln_port
-ENV C_BILLION_LAUGHS_PORT=$c_billion_laughs_port
+ENV C_BILLION_LAUGHS_VULN_PORT=$c_billion_laughs_vuln_port
 
 
-RUN apt-get update
+	#added fixes
+#ARG c_port_idp
+#ENV C_PORT_IDP=$c_port_idp
+
+RUN apt-get update 
 RUN apt-get install -y tomcat8 tomcat8-admin nano unzip curl
 
 	#setting some variables
@@ -106,8 +111,7 @@ RUN sed -i 's+localhost:8002+localhost:'$C_BASE_PORT'+g' /opt/shibboleth-idp/met
 RUN sed -i 's+localhost:8003+localhost:'$C_RELAYSTATE_VULN_PORT'+g' /opt/shibboleth-idp/metadata/metadata/javasp-relaystate-vuln-metadata.xml
 RUN sed -i 's+localhost:8004+localhost:'$C_RELAYSTATE_SANITIZED_PORT'+g' /opt/shibboleth-idp/metadata/metadata/javasp-relaystate-sanitized-metadata.xml
 RUN sed -i 's+localhost:8005+localhost:'$C_CANONICALIZATION_PORT'+g' /opt/shibboleth-idp/metadata/metadata/javasp-canonicalization-vuln-metadata.xml
-RUN sed -i 's+localhost:8006+localhost:'$C_BILLION_LAUGHS_PORT'+g' /opt/shibboleth-idp/metadata/metadata/javasp-billion-laughs-vuln-metadata.xml
-
+RUN sed -i 's+localhost:8010+localhost:'$C_BILLION_LAUGHS_VULN_PORT'+g' /opt/shibboleth-idp/metadata/metadata/javasp-billion-laughs-vuln-metadata.xml
 
 
 	#setting logout

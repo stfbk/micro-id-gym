@@ -3,6 +3,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const fs = require("fs");
 const fetch = require('node-fetch');
+const path = require('path');
 
 router.get('/', (request, response) => {
   response.render("standard.ejs");
@@ -35,24 +36,38 @@ router.get('/custom', (request, response) => {
 
 
 
-router.post('/stix/generate', (request, response) => {
-  tmp = JSON.parse(JSON.stringify(stixTableJson));
-  paramList = JSON.parse(request.body.paramList);
-  for(i = 0; i < paramList.length; i++)
+router.post('/stix/generate', (request, response, next) => {
+  let tmp, paramList, i;
+  try {
+    tmp = JSON.parse(JSON.stringify(stixTableJson));
+  } catch (err) {
+    return next(err);
+  }
+  try {
+    paramList = JSON.parse(request.body.paramList);
+  } catch (err) {
+    return next(err);
+  }
+  for (i = 0; i < paramList.length; i++) {
     paramList[i] = paramList[i].trim();
+  }
   paramList = paramList.filter(item => item);
-  filteredObjectList = extractStixFromParams(paramList);
-  if(filteredObjectList.length > 0) {
+  const filteredObjectList = extractStixFromParams(paramList);
+  if (filteredObjectList.length > 0) {
     tmp.objects = filteredObjectList;
-    random = getRandom();
-    filename = 'tmp-custom-' + random + '.json';
-    fs.writeFileSync('./temp/' + filename, JSON.stringify(tmp));
-    response.redirect("/custom?filename=" + filename);
+    const filename = `tmp-custom-${getRandom()}.json`;
+    const pathToFile = path.join(process.cwd(), '../', 'temp', filename);
+    fs.writeFile(pathToFile,
+      JSON.stringify(tmp), function (error) {
+        if (error) {
+          return next(error);
+        }
+        response.redirect(`/temp/${filename}`);
+      });
   } else {
     response.render("noStixError.ejs")
   }
 });
-
 
 
 

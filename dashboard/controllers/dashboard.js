@@ -51,6 +51,13 @@ router.post('/generate', upload.fields([{ name: 'uploadedTool', maxCount: 5 }, {
             if (error) {
               response.render("error");
             }
+
+            replaceFileValue("temp/" + folderName + "/frontend/proxy/msc-logger-saml.json", "5000", request.body.mscPort);
+            replaceFileValue("temp/" + folderName + "/frontend/proxy/msc-logger-saml.json", "<sessionId>", request.body.migScenarioName);
+            replaceFileValue("temp/" + folderName + "/frontend/proxy/msc-logger-oauth.json", "5000", request.body.mscPort);
+            replaceFileValue("temp/" + folderName + "/frontend/proxy/msc-logger-oauth.json", "<sessionId>", request.body.migScenarioName);
+
+
             if(request.body.targetRadio == "Sandbox") {
               if(request.body.sandboxType.includes("Create")) {
                 // remove unused files to reduce zip folder size
@@ -71,9 +78,7 @@ router.post('/generate', upload.fields([{ name: 'uploadedTool', maxCount: 5 }, {
                       del.sync(["temp/" + folderName + "/sut/idp/OAuth-OIDC"]);
                       del.sync(["temp/" + folderName + "/sut/docker-compose-oauth-mitreid.yml"]);
                       del.sync(["temp/" + folderName + "/sut/docker-compose-oauth-keycloak.yml"]);
-                      del.sync(["temp/" + folderName + "/frontend/proxy/msc-logger-oauth.json"]);
                       fs.renameSync("temp/" + folderName + "/sut/docker-compose-saml.yml", "temp/" + folderName + "/sut/docker-compose.yml");
-                      fs.renameSync("temp/" + folderName + "/frontend/proxy/msc-logger-saml.json", "temp/" + folderName + "/frontend/proxy/msc-logger-options.json");
 
                       del.sync(["temp/" + folderName + "/sut/client/SAML/spring/src/**", "!temp/" + folderName + "/sut/client/SAML/spring/src", "!temp/" + folderName + "/sut/client/SAML/spring/src/spring-security-saml-sp-1.0-" + request.body.clientVersion + ".jar", "!temp/" + folderName + "/sut/client/SAML/spring/src/idp-metadata.xml"]);
 
@@ -81,7 +86,18 @@ router.post('/generate', upload.fields([{ name: 'uploadedTool', maxCount: 5 }, {
 
                       // customize docker-compose sut
                       replaceFileValue("temp/" + folderName + "/sut/docker-compose.yml", "idp_version=3.3.3", "idp_version=" + request.body.idpVersion);
-                      replaceFileValue("temp/" + folderName + "/sut/docker-compose.yml", "c_" + request.body.clientVersion.replace("-", "_") + "_port=8888", "c_" + request.body.clientVersion.replace("-", "_") + "_port=" + request.body.clientPort);
+                      
+                      // add fixes
+                      replaceFileValue("temp/" + folderName + "/sut/docker-compose.yml", "c_version=default", "c_version=" + request.body.clientVersion);
+                      replaceFileValue("temp/" + folderName + "/sut/docker-compose.yml", "c_port_idp=8888", "c_port_idp=" + request.body.clientPort);
+                      // finish
+
+                      // this for client
+                      tempClient = request.body.clientVersion.replace(/-/g, '_');
+                      //console.log("=======> " + tempClient);
+                      replaceFileValue("temp/" + folderName + "/sut/docker-compose.yml", "c_" + tempClient + "_port=8888", "c_" + tempClient + "_port=" + request.body.clientPort);
+                      //console.log("=======> " + request.body.clientPort);
+
                       replaceFileValue("temp/" + folderName + "/sut/docker-compose.yml", "9443:443", request.body.idpPort + ":443");
                       username = request.body.testerUsername.length > 0 ? request.body.testerUsername : "user";
                       password = request.body.testerPassword.length > 0 ? request.body.testerPassword : "password";
@@ -95,9 +111,7 @@ router.post('/generate', upload.fields([{ name: 'uploadedTool', maxCount: 5 }, {
                   del.sync(["temp/" + folderName + "/sut/client/SAML"]);
                   del.sync(["temp/" + folderName + "/sut/credential/SAML"]);
                   del.sync(["temp/" + folderName + "/sut/idp/SAML"]);
-                  del.sync(["temp/" + folderName + "/sut/docker-compose-saml.yml"]);
                   del.sync(["temp/" + folderName + "/frontend/proxy/msc-logger-saml.json"]);
-                  fs.renameSync("temp/" + folderName + "/frontend/proxy/msc-logger-oauth.json", "temp/" + folderName + "/frontend/proxy/msc-logger-options.json");
 
                   if(request.body.clientVersion == "keycloak") {
                     fs.renameSync("temp/" + folderName + "/sut/docker-compose-oauth-keycloak.yml", "temp/" + folderName + "/sut/docker-compose.yml");
@@ -175,12 +189,15 @@ router.post('/generate', upload.fields([{ name: 'uploadedTool', maxCount: 5 }, {
             if(request.body.protocol == "saml"){
               replaceFileValue("temp/" + folderName + "/frontend/proxy/user-options.json", "<saml-plugin-loaded>", "true");
               replaceFileValue("temp/" + folderName + "/frontend/proxy/user-options.json", "<oauth-plugin-loaded>", "false");
+              del.sync(["temp/" + folderName + "/frontend/proxy/msc-logger-oauth.json"]);
+              fs.renameSync("temp/" + folderName + "/frontend/proxy/msc-logger-saml.json", "temp/" + folderName + "/frontend/proxy/msc-logger-options.json");
             } else{
                 replaceFileValue("temp/" + folderName + "/frontend/proxy/user-options.json", "<saml-plugin-loaded>", "false");
                 replaceFileValue("temp/" + folderName + "/frontend/proxy/user-options.json", "<oauth-plugin-loaded>", "true");
+                del.sync(["temp/" + folderName + "/frontend/proxy/msc-logger-saml.json"]);
+                fs.renameSync("temp/" + folderName + "/frontend/proxy/msc-logger-oauth.json", "temp/" + folderName + "/frontend/proxy/msc-logger-options.json");
             }
-            replaceFileValue("temp/" + folderName + "/frontend/proxy/msc-logger-options.json", "5000", request.body.mscPort);
-            replaceFileValue("temp/" + folderName + "/frontend/proxy/msc-logger-options.json", "test-logger", request.body.migScenarioName);
+
 
             // customize README
             if(request.body.clientVersion == "keycloak")
