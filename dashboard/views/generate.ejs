@@ -27,9 +27,12 @@
         <ul>
           <li><b>Proxy</b>
             <ul>
+              <li>In case your OS is Linux or MAC OSx, please run the following two curl command to donwload the Proxy
               <li> open the terminal and reach the folder <span class="monospace text"><%= filename %>/frontend/proxy</span>
               <li> run <span class="monospace text command">curl -c ./cookie -s -L "https://drive.google.com/uc?export=download&id=1JbBh5EhfEAEd7XxswDFBTzqIPBmX6qKp" > <%= filename %>/frontend/proxy/cookie</span>
               <li> run <span class="monospace text command">curl -Lb ./cookie "https://drive.google.com/uc?export=download&confirm=`awk '/download/ {print $NF}' ./cookie`&id=1JbBh5EhfEAEd7XxswDFBTzqIPBmX6qKp" -o burpsuite_community_v2020.2.1.jar</span>
+              <li>In case your OS is Windows, please donwload the Proxy directly from this <a href="https://drive.google.com/uc?export=download&id=1JbBh5EhfEAEd7XxswDFBTzqIPBmX6qKp" target="_blank">URL</a> and copy it in <span class="monospace text"><%= filename %>/frontend/proxy</span>
+              <li> after you download the Proxy tool now you can run it by executing the command in the next point                 
               <li> run <span class="monospace text command">java --illegal-access=permit -jar burpsuite_community_v2020.2.1.jar --user-config-file=user-options.json --config-file=project-options.json &amp;</span>
               <li> configure your browser to use the proxy at port <span class="monospace text command"><%= proxyPort %></span>
               (<a href="https://portswigger.net/support/configuring-chrome-to-work-with-burp">Chrome</a>,
