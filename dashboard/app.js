@@ -24,6 +24,14 @@ console.log(global.appRoot);
 app.use('/', dashboardController);
 
 
+app.use(function (error, req, res,next){
+    console.error('Internal server error');
+    console.error(error);
+    return res
+     .status(500)
+     .render('error');
+});
+
 app.set('port', 2020);
 
 app.listen(app.get('port'), function() {

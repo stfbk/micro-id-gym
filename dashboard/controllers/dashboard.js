@@ -46,7 +46,7 @@ router.post('/generate', upload.fields([
 
 
   console.log(typeof request.files.uploadedIdM !== 'undefined' && request.files.uploadedIdM);
-  async.waterfall([
+  async.series([
     function (cb) {
       ncp("mig/", path.join("temp", folderName), function (error) {
         cb(error)
@@ -106,97 +106,173 @@ router.post('/generate', upload.fields([
     function (cb) {
       replaceFileValue(
         path.join('temp/',folderName, 'frontend/','proxy/','msc-logger-oauth.json'),
-        "<sessionId>",
+        '<sessionId>',
         request.body.migScenarioName,
         cb,
       );
     },
     function (clb) {
+      console.log('Part with sandbox and create', request.body);
       if (request.body.targetRadio === "Sandbox") {
         if (request.body.sandboxType.includes("Create")) {
-          // remove unused files to reduce zip folder size
+          console.log('Sandbox and create, remove unused files to reduce zip folder size');
           username = "";
           password = "";
-          async.waterfall([
+          async.series([
             function (cb){
               ncp(path.join('../','backend/','client-repository'),
                 path.join('temp/',folderName, 'sut/','client/'), function (error) {
+                  console.log('client-repository copied', error);
                 cb(error);
               });
             },
             function (cb){
-              ncp(path.join('../','backend/','idp-repository'),
-                path.join('temp/',folderName, 'sut/','idp/'), function (error) {
+              ncp(
+                path.join('../','backend/','idp-repository/'),
+                path.join('temp/',folderName, 'sut/','idp/'),
+                function (error) {
+                  console.log('idp-repository copied', error);
                   cb(error);
                 });
             },
             function (cb){
-              async.eachSeries([
-                [path.join('temp/',folderName,'sut/','client/','OAuth-OIDC')],
-                [path.join('temp/',folderName,'sut/','credential/','OAuth-OIDC')],
-                [path.join('temp/',folderName,'sut/','idp/','OAuth-OIDC')],
-                [path.join('temp/',folderName,'sut/','docker/','compose-oauth-mitreid.yml')],
-                [path.join('temp/',folderName,'sut/','docker/','compose-oauth-keycloak.yml')],
-                ], del, cb);
+              del([
+                path.join('temp/',folderName,'sut/','client/','OAuth-OIDC'),
+                path.join('temp/',folderName,'sut/','credential/','OAuth-OIDC'),
+                path.join('temp/',folderName,'sut/','idp/','OAuth-OIDC'),
+                path.join('temp/',folderName,'sut/','docker/','compose-oauth-mitreid.yml'),
+                path.join('temp/',folderName,'sut/','docker/','compose-oauth-keycloak.yml'),
+              ],{})
+                .then(function (){cb(null)}).catch(cb);
             },
-            function (cb){
-              fs.rename(
-                path.join('temp/',folderName, 'sut/','docker-compose-saml.yml'),
-                path.join('temp/',folderName, 'sut/','docker-compose.yml'),
-                cb
-              );
-            },
+            // function (cb){
+            //   fs.rename(
+            //     path.join('temp/',folderName, 'sut/','docker-compose-saml.yml'),
+            //     path.join('temp/',folderName, 'sut/','docker-compose.yml'),
+            //     function (error) {
+            //       console.log('Docker compose renamed', error);
+            //       cb(error);
+            //     }
+            //   );
+            // },
             function (cb){
               del([
                   path.join('temp/', folderName, 'sut/','client/','SAML/','spring/','src/','**'),
-                  path.join('!temp/', folderName, 'sut/','client/','SAML/','spring/','src/',),
+                  // path.join('!temp/', folderName, 'sut/','client/','SAML/','spring/','src/'), // its like in tale for cutting wolf properly
                   path.join('!temp/', folderName, 'sut/','client/','SAML/','spring/','src/',`spring-security-saml-sp-1.0-${request.body.clientVersion}.jar`),
                   path.join('!temp/', folderName, 'sut/','client/','SAML/','spring/','src/','idp-metadata.xml')
-                ], cb
-              );
+                ]
+              ).then(function (){cb(null)}).catch(cb);
             },
             function (cb){
               del([
                   path.join('temp/', folderName, 'sut/','idp/','SAML/','shibboleth/', 'src/','shibbolethidp/','**'),
-                  path.join('!temp/', folderName, 'sut/','idp/','SAML/','shibboleth/', 'src/','shibbolethidp'),
-                  path.join('!temp/', folderName, 'sut/','idp/','SAML/','shibboleth/', 'src/','shibbolethidp',`shibboleth-identity-provider-${request.body.idpVersion}.zip`)]
-                , cb
-              );
+                  // path.join('!temp/', folderName, 'sut/','idp/','SAML/','shibboleth/', 'src/','shibbolethidp'),
+                  path.join('!temp/', folderName, 'sut/','idp/','SAML/','shibboleth/', 'src/','shibbolethidp',`shibboleth-identity-provider-${request.body.idpVersion}.zip`)
+                ]).then(function (){cb(null)}).catch(cb);
             },
             function (cb) {
               if (request.body.targetRadio === "Sandbox") {
+                console.log('Target ratio is sandbox!');
                 if (request.body.protocol === "saml") {
-                  // customize docker-compose sut
+                  console.log('Protocol is saml');
+                  console.log('customize docker-compose sut');
                   const input = path.join('temp/', folderName, '/sut/docker-compose.yml');
-                  // add fixes
                   return async.series([
+                    function (c) {
+                      del([
+                        path.join('temp/', folderName, 'sut/', 'client/', 'OAuth-OIDC'),
+                        path.join('temp/', folderName, 'sut/', 'credential/', 'OAuth-OIDC'),
+                        path.join('temp/', folderName, 'sut/', 'idp/', 'OAuth-OIDC'),
+                        path.join('temp/', folderName, 'sut/', 'docker-compose-oauth-mitreid.yml'),
+                        path.join('temp/', folderName, 'sut/', 'docker-compose-oauth-keycloak.yml')
+                      ]).then(function (){c(null)}).catch(c);
+                    },
+                    function (c) {
+                      fs.rename(
+                        path.join('temp/', folderName, 'sut/', 'docker-compose-saml.yml'),
+                        path.join('temp/', folderName, 'sut/', 'docker-compose.yml'),
+                        c
+                      );
+                    },
+                    function (c) {
+                      del([
+                        path.join('temp/', folderName, 'sut/', 'client/', 'SAML/', 'spring/', 'src/','**'),
+                        path.join('!temp/', folderName, 'sut/', 'client/', 'SAML/', 'spring/', 'src'),
+                        path.join('!temp/', folderName, 'sut/', 'client/', 'SAML/', 'spring/', 'src/', `spring-security-saml-sp-1.0-${request.body.clientVersion}.jar`),
+                        path.join('!temp/', folderName, 'sut/', 'client/', 'SAML/', 'spring/', 'src/','idp-metadata.xml'),
+                        path.join('temp/', folderName, 'sut/', 'idp/', 'SAML/', 'shibboleth/', 'src/','shibbolethidp/', '**'),
+                        path.join('!temp/', folderName, 'sut/', 'idp/', 'SAML/', 'shibboleth/', 'src/','shibbolethidp'),
+                        path.join('!temp/', folderName, 'sut/', 'idp/', 'SAML/', 'shibboleth/', 'src/', 'shibbolethidp/', `shibboleth-identity-provider-${request.body.idpVersion}.zip`),
+                      ]).then(function (){c(null)}).catch(c);
+                    },
+                    // customize docker-compose sut
                     function (c) {
                       replaceFileValue(input, "idp_version=3.3.3", "idp_version=" + request.body.idpVersion, c);
                     },
+                    // add fixes
                     function (c) {
                       replaceFileValue(input, "c_version=default", "c_version=" + request.body.clientVersion, c);
                     },
                     function (c) {
                       replaceFileValue(input, "c_port_idp=8888", "c_port_idp=" + request.body.clientPort, c);
+                    },
+                    // this for client
+                    function (c) {
+                      const tempClient = request.body.clientVersion.replace(/-/g, '_');
+                      //console.log("=======> " + tempClient);
+                      replaceFileValue(
+                        input,
+                        "c_" + tempClient + "_port=8888",
+                        "c_" + tempClient + "_port=" + request.body.clientPort, c
+                      );
+                      //console.log("=======> " + request.body.clientPort);
+                    },
+                    function (c) {
+                      replaceFileValue(input,
+                        "9443:443",
+                        request.body.idpPort + ":443",
+                        c
+                        );
+                    },
+                    function (c) {
+                      let username = request.body.testerUsername.length > 0 ? request.body.testerUsername : "user";
+                      replaceFileValue(input, "testerUsername=mig", "testerUsername=" + username, c);
+                    },
+                    function (c) {
+                      let password = request.body.testerPassword.length > 0 ? request.body.testerPassword : "password";
+                      replaceFileValue(input, "testerPassword=mig", "testerPassword=" + password, c);
+                    },
+                    function (c) {
+                      replaceFileValue(input, "c_version=secure", "c_version=" + request.body.clientVersion, c);
+                    },
+                    function (c) {
+                      replaceFileValue(input, "c_port=8888", "c_port=" + request.body.clientPort, c);
+                    },
+                    function (c) {
+                      replaceFileValue(input, "idp_port=9443", "idp_port=" + request.body.idpPort, c);
+                    },
+                    function (c) {
+                      replaceFileValue(input, "8888:8888", request.body.clientPort + ":" + request.body.clientPort, c);
                     }
                   ], cb);
                   // finish
                 } else { // not saml
+                  console.log('Protocol is not saml');
                   return  del([
                     path.join('temp/', folderName, 'sut/','client/','SAML'),
                     path.join('temp/', folderName, 'sut/', 'credential/','SAML'),
                     path.join('temp/', folderName, 'sut/','idp/','SAML'),
                     path.join('temp/', folderName, 'frontend/','proxy/','msc-logger-saml.json'),
-                  ], cb);
+                  ]).then(function (){cb(null)}).catch(cb);
                 }
               } else { // not Sandbox
-
+                console.log('Target ratio is not sandbox');
+                del(["temp/" + folderName + "/sut"])
+                  .then(function (){cb(null)}).catch(cb);
               }
             },
-            function (cb){
-              cb(null);
-            }
-          ],clb);
+          ], clb);
         } else {
           if (typeof request.files.uploadedIdM !== 'undefined' && request.files.uploadedIdM.length > 0) {
             async.series([
@@ -240,7 +316,7 @@ router.post('/generate', upload.fields([
       }
     },
     function (clb) {
-      // customize docker-compose tools
+      console.log('customize docker-compose tools');
       async.series([
         function (c) {
           replaceFileValue(path.join('temp/', folderName, 'frontend/', 'tools/', 'docker-compose.yml'), "msc_port=5000", "msc_port=" + request.body.mscPort, c);
@@ -255,12 +331,16 @@ router.post('/generate', upload.fields([
           replaceFileValue(path.join('temp/', folderName, 'frontend/', 'tools/', 'docker-compose.yml'), "stix_port=5555", "stix_port=" + request.body.stixPort, c);
         },
         function (c) {
-          replaceFileValue(path.join('temp/', folderName, 'frontend/', 'tools/', 'docker-compose.yml'), "5555:5555", request.body.stixPort + ":" + request.body.stixPort, c);
+          replaceFileValue(path.join('temp/', folderName, 'frontend/', 'tools/', 'docker-compose.yml'), "5555:5555",
+            request.body.stixPort + ":" + request.body.stixPort, c);
         },
-      ], clb);
+      ], function (error){
+        console.log('Customizing docker-compose tools finished with error',error);
+        clb(error);
+      });
     },
     function (clb) {
-      // customize burp option files
+      console.log('customize burp option files');
       if (typeof request.files.uploadedTool !== 'undefined' && request.files.uploadedTool.length > 0) {
         let additionalTool = [];
         // add extensions to burp
@@ -320,7 +400,8 @@ router.post('/generate', upload.fields([
               cb);
           },
           function (cb) {
-            del([path.join('temp/', folderName, 'frontend/','proxy/','msc-logger-oauth.json')], cb);
+            del([path.join('temp/', folderName, 'frontend/','proxy/','msc-logger-oauth.json')])
+              .then(function (){cb(null)}).catch(cb);
           },
           function (cb) {
             fs.rename(
@@ -346,7 +427,8 @@ router.post('/generate', upload.fields([
               cb);
           },
           function (cb) {
-            del([path.join('temp/', folderName, 'frontend/','proxy/','msc-logger-saml.json')], cb);
+            del([path.join('temp/', folderName, 'frontend/','proxy/','msc-logger-saml.json')])
+              .then(function (){cb(null)}).catch(cb);
           },
           function (cb) {
             fs.rename(
@@ -390,12 +472,16 @@ router.post('/generate', upload.fields([
       replaceFileValue(path.join('temp/',folderName, 'README.txt'), "<password>", password, clb);
     },
     function (clb){
-      del([path.join('temp/','uploads/','**')], clb);
+      console.log('Deleting temp uploads!');
+      del([path.join('temp/','uploads/','**')])
+          .then(function (){clb(null)}).catch(clb);
     }
   ], function (error) {
     if (error) {
+      console.error('Error is', error);
       return next(error);
     }
+    console.error('No errors, rendering result...');
     if (request.body.targetRadio === "Sandbox") {
       if (request.body.sandboxType.includes("Create")) {
         response.render("generate", {
@@ -462,9 +548,10 @@ function replaceFileValue(filePath, oldValue, newValue, cb) {
   };
   replace(options, function (error, results){
     if(error) {
+      console.error('Error replacing in %s:', filePath, error)
       return cb(error);
     }
-    console.log('In file %s we replaced %s to %s', filePath, oldValue, newValue);
+    console.log('In file %s we replaced %s to %s with results', filePath, oldValue, newValue, results);
     cb(null);
   });
 }
