@@ -34,7 +34,6 @@
                     "name":"SAML Checks",
                     "output":"ui"
                 }
-                <additional-tools>
             ],
             "settings":{
                 "automatically_reload_extensions_on_startup":true,
