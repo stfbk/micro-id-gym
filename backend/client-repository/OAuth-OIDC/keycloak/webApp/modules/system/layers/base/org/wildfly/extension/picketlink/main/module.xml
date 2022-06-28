@@ -23,7 +23,7 @@
     </exports>
 
     <resources>
-        <resource-root path="wildfly-picketlink-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-picketlink-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

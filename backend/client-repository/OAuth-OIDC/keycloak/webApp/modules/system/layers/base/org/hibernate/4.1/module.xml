@@ -23,7 +23,7 @@
 <!-- Represents the Hibernate 4.1.x (works with Hibernate 4.2.x jars also) module  -->
 <module name="org.hibernate" slot="4.1" xmlns="urn:jboss:module:1.5">
     <resources>
-        <resource-root path="jipijapa-hibernate4-1-15.0.0.Final.jar"/>
+        <resource-root path="jipijapa-hibernate4-1-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

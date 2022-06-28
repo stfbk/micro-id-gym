@@ -26,8 +26,8 @@
     </properties>
 
     <resources>
-        <resource-root path="jipijapa-hibernate5-15.0.0.Final.jar"/>
-        <resource-root path="jipijapa-hibernate5-legacy-15.0.0.Final.jar"/>
+        <resource-root path="jipijapa-hibernate5-16.0.0.Final.jar"/>
+        <resource-root path="jipijapa-hibernate5-legacy-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

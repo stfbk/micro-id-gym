@@ -26,7 +26,7 @@
     </properties>
 
     <resources>
-        <resource-root path="wildfly-mod_cluster-extension-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-mod_cluster-extension-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

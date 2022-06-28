@@ -23,7 +23,7 @@
 <module name="org.jboss.resteasy.resteasy-jaxb-provider" xmlns="urn:jboss:module:1.5">
 
     <resources>
-        <resource-root path="resteasy-jaxb-provider-3.6.2.Final.jar"/>
+        <resource-root path="resteasy-jaxb-provider-3.6.3.Final.jar"/>
     </resources>
 
     <dependencies>

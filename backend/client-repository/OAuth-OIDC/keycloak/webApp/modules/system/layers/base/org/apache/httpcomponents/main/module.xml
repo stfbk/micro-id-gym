@@ -27,7 +27,7 @@
 
     <resources>
         <resource-root path="httpcore-nio-4.4.5.jar"/>
-        <resource-root path="httpasyncclient-4.1.3.jar"/>
+        <resource-root path="httpasyncclient-4.1.4.jar"/>
         <resource-root path="httpmime-4.5.4.jar"/>
     </resources>
 

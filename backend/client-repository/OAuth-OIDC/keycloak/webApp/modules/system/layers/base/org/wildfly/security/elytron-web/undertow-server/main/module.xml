@@ -26,7 +26,7 @@
     </properties>
 
     <resources>
-        <resource-root path="undertow-server-1.3.0.Final.jar"/>
+        <resource-root path="undertow-server-1.4.0.Final.jar"/>
     </resources>
 
     <dependencies>

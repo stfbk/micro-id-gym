@@ -27,7 +27,7 @@
     </properties>
 
     <resources>
-        <resource-root path="wildfly-security-api-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-security-api-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

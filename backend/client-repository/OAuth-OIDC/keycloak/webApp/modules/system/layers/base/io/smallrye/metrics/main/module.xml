@@ -26,7 +26,7 @@
     </properties>
 
     <resources>
-        <resource-root path="smallrye-metrics-1.1.2.jar"/>
+        <resource-root path="smallrye-metrics-1.1.3.jar"/>
     </resources>
 
     <dependencies>

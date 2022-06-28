@@ -27,7 +27,7 @@
     </properties>
 
     <resources>
-        <resource-root path="wildfly-security-manager-7.0.0.Final.jar"/>
+        <resource-root path="wildfly-security-manager-8.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

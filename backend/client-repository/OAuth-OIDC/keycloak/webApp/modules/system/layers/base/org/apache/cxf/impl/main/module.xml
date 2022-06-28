@@ -27,38 +27,38 @@
     </properties>
 
     <resources>
-        <resource-root path="cxf-rt-bindings-coloc-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-bindings-soap-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-bindings-xml-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-databinding-aegis-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-databinding-jaxb-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-features-clustering-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-frontend-jaxws-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-frontend-simple-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-management-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-security-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-security-saml-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-transports-http-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-transports-http-hc-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-transports-jms-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-transports-local-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-wsdl-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-ws-addr-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-ws-mex-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-ws-policy-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-rt-ws-rm-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-tools-common-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-tools-java2ws-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-tools-validator-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-tools-wsdlto-core-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-tools-wsdlto-databinding-jaxb-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-tools-wsdlto-frontend-jaxws-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-services-ws-discovery-api-3.2.5-jbossorg-1.jar"/>
-        <resource-root path="cxf-xjc-boolean-3.2.2.jar"/>
-        <resource-root path="cxf-xjc-bug986-3.2.2.jar"/>
-        <resource-root path="cxf-xjc-dv-3.2.2.jar"/>
-        <resource-root path="cxf-xjc-ts-3.2.2.jar"/>
-        <resource-root path="cxf-xjc-runtime-3.2.2.jar"/>
+        <resource-root path="cxf-rt-bindings-coloc-3.2.7.jar"/>
+        <resource-root path="cxf-rt-bindings-soap-3.2.7.jar"/>
+        <resource-root path="cxf-rt-bindings-xml-3.2.7.jar"/>
+        <resource-root path="cxf-rt-databinding-aegis-3.2.7.jar"/>
+        <resource-root path="cxf-rt-databinding-jaxb-3.2.7.jar"/>
+        <resource-root path="cxf-rt-features-clustering-3.2.7.jar"/>
+        <resource-root path="cxf-rt-frontend-jaxws-3.2.7.jar"/>
+        <resource-root path="cxf-rt-frontend-simple-3.2.7.jar"/>
+        <resource-root path="cxf-rt-management-3.2.7.jar"/>
+        <resource-root path="cxf-rt-security-3.2.7.jar"/>
+        <resource-root path="cxf-rt-security-saml-3.2.7.jar"/>
+        <resource-root path="cxf-rt-transports-http-3.2.7.jar"/>
+        <resource-root path="cxf-rt-transports-http-hc-3.2.7.jar"/>
+        <resource-root path="cxf-rt-transports-jms-3.2.7.jar"/>
+        <resource-root path="cxf-rt-transports-local-3.2.7.jar"/>
+        <resource-root path="cxf-rt-wsdl-3.2.7.jar"/>
+        <resource-root path="cxf-rt-ws-addr-3.2.7.jar"/>
+        <resource-root path="cxf-rt-ws-mex-3.2.7.jar"/>
+        <resource-root path="cxf-rt-ws-policy-3.2.7.jar"/>
+        <resource-root path="cxf-rt-ws-rm-3.2.7.jar"/>
+        <resource-root path="cxf-tools-common-3.2.7.jar"/>
+        <resource-root path="cxf-tools-java2ws-3.2.7.jar"/>
+        <resource-root path="cxf-tools-validator-3.2.7.jar"/>
+        <resource-root path="cxf-tools-wsdlto-core-3.2.7.jar"/>
+        <resource-root path="cxf-tools-wsdlto-databinding-jaxb-3.2.7.jar"/>
+        <resource-root path="cxf-tools-wsdlto-frontend-jaxws-3.2.7.jar"/>
+        <resource-root path="cxf-services-ws-discovery-api-3.2.7.jar"/>
+        <resource-root path="cxf-xjc-boolean-3.2.3.jar"/>
+        <resource-root path="cxf-xjc-bug986-3.2.3.jar"/>
+        <resource-root path="cxf-xjc-dv-3.2.3.jar"/>
+        <resource-root path="cxf-xjc-ts-3.2.3.jar"/>
+        <resource-root path="cxf-xjc-runtime-3.2.3.jar"/>
     </resources>
 
     <dependencies>

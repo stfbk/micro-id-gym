@@ -28,7 +28,7 @@
 
 
     <resources>
-        <resource-root path="resteasy-jettison-provider-3.6.2.Final.jar"/>
+        <resource-root path="resteasy-jettison-provider-3.6.3.Final.jar"/>
     </resources>
 
     <dependencies>

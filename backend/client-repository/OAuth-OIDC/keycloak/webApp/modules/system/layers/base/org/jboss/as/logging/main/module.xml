@@ -31,7 +31,7 @@
     </exports>
 
     <resources>
-        <resource-root path="wildfly-logging-7.0.0.Final.jar"/>
+        <resource-root path="wildfly-logging-8.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

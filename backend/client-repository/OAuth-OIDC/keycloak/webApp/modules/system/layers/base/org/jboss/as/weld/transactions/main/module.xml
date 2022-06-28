@@ -27,7 +27,7 @@
     </properties>
 
     <resources>
-        <resource-root path="wildfly-weld-transactions-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-weld-transactions-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>
@@ -37,9 +37,6 @@
         <module name="org.jboss.as.weld.common"/>
         <module name="org.jboss.as.server"/>
         <module name="org.jboss.as.ee"/>
-        <module name="org.jboss.as.security"/>
-        <module name="org.wildfly.security.elytron-private"/>
-        <module name="org.jboss.modules"/>
         <module name="org.jboss.msc"/>
         <module name="org.wildfly.transaction.client"/>
         <module name="javax.transaction.api"/>

@@ -27,7 +27,7 @@
     </exports>
 
     <resources>
-        <resource-root path="wildfly-system-jmx-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-system-jmx-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

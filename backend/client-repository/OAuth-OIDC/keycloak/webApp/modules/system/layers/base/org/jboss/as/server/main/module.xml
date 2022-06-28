@@ -29,7 +29,7 @@
     <main-class name="org.jboss.as.server.DomainServerMain"/>
 
     <resources>
-        <resource-root path="wildfly-server-7.0.0.Final.jar"/>
+        <resource-root path="wildfly-server-8.0.0.Final.jar"/>
     </resources>
 
     <dependencies>
@@ -68,6 +68,7 @@
 
         <module name="org.jboss.staxmapper"/>
         <module name="org.jboss.dmr"/>
+        <module name="org.jboss.classfilewriter"/>
         <module name="org.jboss.invocation"/>
         <module name="org.jboss.jandex"/>
         <module name="org.jboss.marshalling"/>

@@ -27,10 +27,10 @@
     </properties>
 
     <resources>
-        <resource-root path="weld-core-impl-3.0.5.Final.jar"/>
-        <resource-root path="weld-ejb-3.0.5.Final.jar"/>
-        <resource-root path="weld-jta-3.0.5.Final.jar"/>
-        <resource-root path="weld-web-3.0.5.Final.jar"/>
+        <resource-root path="weld-core-impl-3.1.0.Final.jar"/>
+        <resource-root path="weld-ejb-3.1.0.Final.jar"/>
+        <resource-root path="weld-jta-3.1.0.Final.jar"/>
+        <resource-root path="weld-web-3.1.0.Final.jar"/>
     </resources>
 
     <dependencies>

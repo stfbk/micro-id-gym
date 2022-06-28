@@ -30,7 +30,7 @@
     </exports>
 
     <resources>
-        <resource-root path="wildfly-elytron-integration-7.0.0.Final.jar"/>
+        <resource-root path="wildfly-elytron-integration-8.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

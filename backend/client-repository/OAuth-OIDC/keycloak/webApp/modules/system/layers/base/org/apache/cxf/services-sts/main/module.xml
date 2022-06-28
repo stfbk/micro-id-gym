@@ -23,7 +23,7 @@
 <module name="org.apache.cxf.services-sts" xmlns="urn:jboss:module:1.5">
 
     <resources>
-        <resource-root path="cxf-services-sts-core-3.2.5-jbossorg-1.jar"/>
+        <resource-root path="cxf-services-sts-core-3.2.7.jar"/>
     </resources>
 
     <dependencies>

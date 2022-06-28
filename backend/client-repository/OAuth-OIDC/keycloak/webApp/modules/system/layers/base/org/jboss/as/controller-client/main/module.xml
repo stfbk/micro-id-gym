@@ -27,7 +27,7 @@
     </exports>
 
     <resources>
-        <resource-root path="wildfly-controller-client-7.0.0.Final.jar"/>
+        <resource-root path="wildfly-controller-client-8.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

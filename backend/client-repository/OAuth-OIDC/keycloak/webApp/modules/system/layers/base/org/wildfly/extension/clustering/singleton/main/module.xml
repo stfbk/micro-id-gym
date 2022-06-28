@@ -26,7 +26,7 @@
     </properties>
 
     <resources>
-        <resource-root path="wildfly-clustering-singleton-extension-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-clustering-singleton-extension-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>
@@ -41,6 +41,7 @@
         <module name="org.jboss.msc"/>
         <module name="org.jboss.staxmapper"/>
         <module name="org.jboss.vfs"/>
+        <module name="org.wildfly.clustering.api"/>
         <module name="org.wildfly.clustering.service"/>
         <module name="org.wildfly.clustering.singleton"/>
         <module name="org.wildfly.clustering.spi"/>

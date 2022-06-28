@@ -26,7 +26,7 @@
     </properties>
 
     <resources>
-        <resource-root path="resteasy-rxjava2-3.6.2.Final.jar"/>
+        <resource-root path="resteasy-rxjava2-3.6.3.Final.jar"/>
     </resources>
 
     <dependencies>

@@ -22,10 +22,10 @@
   -->
 <module name="org.jboss.narayana.rts" xmlns="urn:jboss:module:1.5">
     <resources>
-        <resource-root path="restat-api-5.9.0.Final.jar"/>
-        <resource-root path="restat-util-5.9.0.Final.jar"/>
-        <resource-root path="restat-integration-5.9.0.Final.jar"/>
-        <resource-root path="restat-bridge-5.9.0.Final.jar"/>
+        <resource-root path="restat-api-5.9.3.Final.jar"/>
+        <resource-root path="restat-util-5.9.3.Final.jar"/>
+        <resource-root path="restat-integration-5.9.3.Final.jar"/>
+        <resource-root path="restat-bridge-5.9.3.Final.jar"/>
     </resources>
 
     <dependencies>

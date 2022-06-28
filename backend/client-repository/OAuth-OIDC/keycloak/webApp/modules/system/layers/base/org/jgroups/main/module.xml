@@ -23,7 +23,7 @@
 <module name="org.jgroups" xmlns="urn:jboss:module:1.7">
 
     <resources>
-        <resource-root path="jgroups-4.0.15.Final.jar"/>
+        <resource-root path="jgroups-4.0.18.Final.jar"/>
     </resources>
 
     <dependencies>

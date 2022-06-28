@@ -30,7 +30,7 @@
     </exports>
 
     <resources>
-        <resource-root path="wildfly-transactions-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-transactions-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>
@@ -56,7 +56,6 @@
         <module name="org.wildfly.transaction.client"/>
         <module name="org.jboss.jandex"/>
         <module name="org.jboss.modules"/>
-        <module name="org.jboss.narayana.compensations"/>
         <module name="org.wildfly.security.manager"/>
 
         <!-- Only used if the org.wildfly.undertow.http-invoker capability is present,

@@ -25,7 +25,7 @@
      JPA Applications -->
 <module name="org.hibernate.search.orm" xmlns="urn:jboss:module:1.7">
     <resources>
-        <resource-root path="hibernate-search-orm-5.10.3.Final.jar"/>
+        <resource-root path="hibernate-search-orm-5.10.5.Final.jar"/>
     </resources>
 
     <dependencies>

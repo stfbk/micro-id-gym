@@ -23,7 +23,7 @@
 <!-- Represents the Hibernate 4.0.x module-->
 <module name="org.hibernate.commons-annotations" xmlns="urn:jboss:module:1.5">
     <resources>
-        <resource-root path="hibernate-commons-annotations-5.0.4.Final.jar"/>
+        <resource-root path="hibernate-commons-annotations-5.0.5.Final.jar"/>
     </resources>
 
     <dependencies>

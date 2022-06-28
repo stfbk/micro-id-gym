@@ -21,7 +21,7 @@
     </properties>
 
     <resources>
-        <resource-root path="wildfly-microprofile-opentracing-smallrye-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-microprofile-opentracing-smallrye-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

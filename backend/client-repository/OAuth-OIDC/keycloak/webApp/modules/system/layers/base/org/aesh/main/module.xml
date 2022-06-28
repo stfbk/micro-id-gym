@@ -27,8 +27,8 @@
 
     <resources>
         <resource-root path="aesh-extensions-1.6.jar"/>
-        <resource-root path="aesh-readline-1.11.jar"/>
-        <resource-root path="aesh-1.8.jar"/>
+        <resource-root path="aesh-readline-1.14.jar"/>
+        <resource-root path="aesh-1.11.jar"/>
     </resources>
 
     <dependencies>

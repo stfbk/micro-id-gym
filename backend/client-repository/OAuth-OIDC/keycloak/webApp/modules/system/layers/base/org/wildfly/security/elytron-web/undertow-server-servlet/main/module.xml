@@ -20,13 +20,13 @@
   ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
-<module name="org.wildfly.security.elytron-web.undertow-server-servlet" version="1.3.0.Final" xmlns="urn:jboss:module:1.6">
+<module name="org.wildfly.security.elytron-web.undertow-server-servlet" version="1.4.0.Final" xmlns="urn:jboss:module:1.6">
     <properties>
         <property name="jboss.api" value="private"/>
     </properties>
 
     <resources>
-        <resource-root path="undertow-server-servlet-1.3.0.Final.jar"/>
+        <resource-root path="undertow-server-servlet-1.4.0.Final.jar"/>
     </resources>
 
     <dependencies>

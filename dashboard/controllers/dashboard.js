@@ -15,7 +15,7 @@ var upload = multer({dest: 'temp/uploads/'})
 upload.fields([{name: 'avatar', maxCount: 1}, {name: 'gallery', maxCount: 8}])
 
 
-ncp.limit = 16;
+ncp.limit = 160;
 
 router.get('/', (request, response) => {
   response.render("dashboard");
@@ -31,7 +31,25 @@ router.post('/generate', upload.fields([
   {name: 'uploadedIdM', maxCount: 1}
 ]), (request, response, next) => {
   console.log(request.body);
-  const folderName = request.body.migScenarioName + "-" + Date.now();
+  let testSingleFolder = false;
+  let folderName = request.body.migScenarioName + "-" + Date.now();
+  if(testSingleFolder){
+    folderName = request.body.migScenarioName+"-test";
+    let p = path.join(process.cwd(), "temp", folderName);
+    if (fs.existsSync(p)){
+      let dirs = ['sut/client', 'sut/credential', 'sut/idp', 'frontend', 'sut/docker-compose.yml']
+      dirs.map(f=>{
+        let folderPath = path.join(p, f);
+        if(fs.existsSync(folderPath))
+          fs.rmSync(folderPath, {recursive:true})
+      })
+    }
+  }else{
+    let dir = path.join(process.cwd(), "temp", folderName);
+    if(!fs.existsSync(dir))
+      fs.mkdirSync(dir);
+  }
+
   let username;
   let password;
   let clientPortAndBasePath;
@@ -48,9 +66,31 @@ router.post('/generate', upload.fields([
   console.log(typeof request.files.uploadedIdM !== 'undefined' && request.files.uploadedIdM);
   async.series([
     function (cb) {
-      ncp("mig/", path.join("temp", folderName), function (error) {
-        cb(error)
-      });
+      let dir = path.join(process.cwd(), "temp", folderName, "sut");
+      if(!fs.existsSync(dir))
+        fs.mkdirSync(dir);
+      let files = [
+        'frontend',
+        'README.txt',
+        'sut/credential',
+        'sut/docker-compose-oauth-keycloak.yml',
+        'sut/docker-compose-oauth-mitreid.yml',
+        'sut/docker-compose-saml.yml'
+      ]
+      let digest = (err)=>{
+        if(err)
+          return cb(err);
+        let file = files.pop();
+        if(!file)
+          return cb(err);
+        
+        
+
+        ncp(`mig/${file}`, path.join("temp", folderName, file), function (error) {
+          digest(error)
+        });
+      }
+      digest();
     },
     function (cb) {
       ncp(path.join('../', 'frontend/', 'proxy'),
@@ -60,7 +100,10 @@ router.post('/generate', upload.fields([
         });
     },
     function (cb) {
-      ncp(path.join('../', 'frontend/', 'pentesting-tools'),
+      let toolPath = path.join(process.cwd(), '../', 'frontend/', 'pentesting-tools');
+      if (!fs.existsSync(toolPath))
+        return cb();
+      ncp(toolPath,
         path.join('temp/', folderName, 'frontend/', 'proxy/', 'extension'), function (error) {
           cb(error);
         });
@@ -120,8 +163,9 @@ router.post('/generate', upload.fields([
           password = "";
           async.series([
             function (cb){
-              ncp(path.join('../','backend/','client-repository'),
-                path.join('temp/',folderName, 'sut/','client/'), function (error) {
+              ncp(path.join('../', 'backend', 'client-repository'),
+                path.join('temp', folderName, 'sut', 'client'),
+                function (error) {
                   console.log('client-repository copied', error);
                 cb(error);
               });
@@ -135,13 +179,56 @@ router.post('/generate', upload.fields([
                   cb(error);
                 });
             },
+            function(cb){
+              let file = request.body.clientVersion === "keycloak"? 'mitreid':'keycloak';
+              del([
+                path.join('temp', folderName, 'sut/idp/OAuth-OIDC/', file),
+                path.join('temp', folderName, 'sut/client/OAuth-OIDC/', file)
+              ]).then(function (){cb(null)}).catch(cb);
+            },
+            function (cb){
+              let cwd = process.cwd();
+              let srcDir = path.join(cwd, 'temp', folderName, 'sut/idp/OAuth-OIDC/keycloak/vulnKeycloak/modules/system/layers/base');
+              if(!fs.existsSync(srcDir))
+                return cb()
+              let destDir = path.join(cwd, 'temp', folderName, 'sut/client/OAuth-OIDC/keycloak/webApp/modules/system/layers/base');
+              //console.log("srcDir", srcDir)
+
+              let digestDir = (dir)=>{
+                //console.log("## reading dir:", dir)
+                let list = fs.readdirSync(dir);
+                for (let file of list){
+                  
+                  let srcPath = path.join(dir, file);
+                  let stats = fs.statSync(srcPath)
+                  let isDir = stats.isDirectory();
+                  //console.log("file", file, isDir)
+                  if(isDir){
+                    digestDir(srcPath);
+                    continue;
+                  }
+                  let ext = path.extname(file).replace(".", "").toLowerCase();
+                  if(ext == 'jar'){
+                    let destDirPath = path.join(destDir, dir.replace(srcDir, ""));
+                    if(fs.existsSync(destDirPath)){
+                      console.log("### copy jar::", srcPath)
+                      fs.copyFileSync(srcPath, path.join(destDirPath, file))
+                    }
+                  }
+                }
+              }
+
+              digestDir(srcDir);
+
+              cb()
+            },
             function (cb){
               del([
-                path.join('temp/',folderName,'sut/','client/','OAuth-OIDC'),
-                path.join('temp/',folderName,'sut/','credential/','OAuth-OIDC'),
-                path.join('temp/',folderName,'sut/','idp/','OAuth-OIDC'),
-                path.join('temp/',folderName,'sut/','docker/','compose-oauth-mitreid.yml'),
-                path.join('temp/',folderName,'sut/','docker/','compose-oauth-keycloak.yml'),
+                //path.join('temp/',folderName,'sut/','client/','OAuth-OIDC'),
+                //path.join('temp/',folderName,'sut/','credential/','OAuth-OIDC'),
+                //path.join('temp/',folderName,'sut/','idp/','OAuth-OIDC'),
+                //path.join('temp/',folderName,'sut/','docker/','compose-oauth-mitreid.yml'),
+                //path.join('temp/',folderName,'sut/','docker/','compose-oauth-keycloak.yml'),
               ],{})
                 .then(function (){cb(null)}).catch(cb);
             },
@@ -157,18 +244,18 @@ router.post('/generate', upload.fields([
             // },
             function (cb){
               del([
-                  path.join('temp/', folderName, 'sut/','client/','SAML/','spring/','src/','**'),
+                  //path.join('temp/', folderName, 'sut/','client/','SAML/','spring/','src/','**'),
                   // path.join('!temp/', folderName, 'sut/','client/','SAML/','spring/','src/'), // its like in tale for cutting wolf properly
-                  path.join('!temp/', folderName, 'sut/','client/','SAML/','spring/','src/',`spring-security-saml-sp-1.0-${request.body.clientVersion}.jar`),
-                  path.join('!temp/', folderName, 'sut/','client/','SAML/','spring/','src/','idp-metadata.xml')
+                  //path.join('!temp/', folderName, 'sut/','client/','SAML/','spring/','src/',`spring-security-saml-sp-1.0-${request.body.clientVersion}.jar`),
+                  //path.join('!temp/', folderName, 'sut/','client/','SAML/','spring/','src/','idp-metadata.xml')
                 ]
               ).then(function (){cb(null)}).catch(cb);
             },
             function (cb){
               del([
-                  path.join('temp/', folderName, 'sut/','idp/','SAML/','shibboleth/', 'src/','shibbolethidp/','**'),
+                  //path.join('temp/', folderName, 'sut/','idp/','SAML/','shibboleth/', 'src/','shibbolethidp/','**'),
                   // path.join('!temp/', folderName, 'sut/','idp/','SAML/','shibboleth/', 'src/','shibbolethidp'),
-                  path.join('!temp/', folderName, 'sut/','idp/','SAML/','shibboleth/', 'src/','shibbolethidp',`shibboleth-identity-provider-${request.body.idpVersion}.zip`)
+                  //path.join('!temp/', folderName, 'sut/','idp/','SAML/','shibboleth/', 'src/','shibbolethidp',`shibboleth-identity-provider-${request.body.idpVersion}.zip`)
                 ]).then(function (){cb(null)}).catch(cb);
             },
             function (cb) {
@@ -259,12 +346,53 @@ router.post('/generate', upload.fields([
                   // finish
                 } else { // not saml
                   console.log('Protocol is not saml');
-                  return  del([
-                    path.join('temp/', folderName, 'sut/','client/','SAML'),
-                    path.join('temp/', folderName, 'sut/', 'credential/','SAML'),
-                    path.join('temp/', folderName, 'sut/','idp/','SAML'),
-                    path.join('temp/', folderName, 'frontend/','proxy/','msc-logger-saml.json'),
-                  ]).then(function (){cb(null)}).catch(cb);
+                  const input = path.join('temp/', folderName, '/sut/docker-compose.yml');
+                  return async.series([
+                    function (c) {
+                      let file = request.body.clientVersion === "keycloak"? 'keycloak': 'mitreid';
+                      fs.rename(
+                        path.join('temp/', folderName, 'sut/', `docker-compose-oauth-${file}.yml`),
+                        path.join('temp/', folderName, 'sut/', 'docker-compose.yml'),
+                        c
+                      );
+                    },
+                    function (c) {
+                      let username = request.body.testerUsername.length > 0 ? request.body.testerUsername : "user";
+                      replaceFileValue(input, "testerUsername=mig", "testerUsername=" + username, c);
+                    },
+                    function (c) {
+                      let password = request.body.testerPassword.length > 0 ? request.body.testerPassword : "password";
+                      replaceFileValue(input, "testerPassword=mig", "testerPassword=" + password, c);
+                    },
+                    //function (c) {
+                    //  replaceFileValue(input, "c_version=secure", "c_version=" + request.body.clientVersion, c);
+                    //},
+                    function (c) {
+                      replaceFileValue(input, ["c_port=8888", "c_port=8888", "c_port=8888"], "c_port=" + request.body.clientPort, c);
+                    },
+                    function (c) {
+                      replaceFileValue(input, ["idp_port=9000", "idp_port=9000"], "idp_port=" + request.body.idpPort, c);
+                    },
+                    function (c) {
+                      replaceFileValue(input, ["version=redirect-vuln", "version=0"], "version=" + request.body.idpVersion, c);
+                    },
+                    function (c) {
+                      replaceFileValue(input, "8888:8888", request.body.clientPort + ":" + request.body.clientPort, c);
+                    },
+                    function (c) {
+                      replaceFileValue(input, "9000:9000", request.body.idpPort + ":" + request.body.idpPort, c);
+                    },
+                    function (c) {
+                      del([
+                        path.join('temp/', folderName, 'sut','docker-compose-oauth-keycloak.yml'),
+                        path.join('temp/', folderName, 'sut','docker-compose-oauth-mitreid.yml'),
+                        path.join('temp/', folderName, 'sut','docker-compose-saml.yml'),
+                        path.join('temp/', folderName, 'sut/','client/','SAML'),
+                        path.join('temp/', folderName, 'sut/', 'credential/','SAML'),
+                        path.join('temp/', folderName, 'sut/','idp/','SAML'),
+                        path.join('temp/', folderName, 'frontend/','proxy/','msc-logger-saml.json'),
+                      ]).then(function (){c(null)}).catch(c);
+                    }], cb);
                 }
               } else { // not Sandbox
                 console.log('Target ratio is not sandbox');

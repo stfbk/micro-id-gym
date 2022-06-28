@@ -27,7 +27,7 @@
     </properties>
 
     <resources>
-        <resource-root path="jboss-invocation-1.5.1.Final.jar"/>
+        <resource-root path="jboss-invocation-1.5.2.Final.jar"/>
     </resources>
 
     <dependencies>

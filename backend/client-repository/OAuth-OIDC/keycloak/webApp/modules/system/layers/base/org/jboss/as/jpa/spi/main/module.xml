@@ -26,7 +26,7 @@
     </properties>
 
     <resources>
-        <resource-root path="jipijapa-spi-15.0.0.Final.jar"/>
+        <resource-root path="jipijapa-spi-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

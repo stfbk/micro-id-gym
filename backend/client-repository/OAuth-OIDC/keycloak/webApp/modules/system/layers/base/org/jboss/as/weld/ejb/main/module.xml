@@ -31,7 +31,7 @@
     </exports>
 
     <resources>
-        <resource-root path="wildfly-weld-ejb-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-weld-ejb-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

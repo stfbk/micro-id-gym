@@ -30,7 +30,7 @@
     </exports>
 
     <resources>
-        <resource-root path="wildfly-webservices-server-integration-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-webservices-server-integration-16.0.0.Final.jar"/>
         <resource-root path="jbossws-cxf-resources-5.2.4.Final-wildfly1400.jar"/>
     </resources>
 
@@ -41,7 +41,6 @@
         <module name="javax.jws.api"/>
         <module name="javax.servlet.api"/>
         <module name="javax.xml.ws.api"/>
-        <module name="org.jboss.ejb3"/>
         <module name="org.jboss.invocation"/>
         <module name="org.jboss.jandex"/>
         <module name="org.jboss.metadata.common"/>
@@ -58,7 +57,6 @@
         <module name="org.jboss.as.security"/>
         <module name="org.wildfly.security.elytron-private"/>
         <module name="org.jboss.as.web-common"/>
-        <module name="org.jboss.threads"/>
         <module name="org.jboss.modules"/>
         <module name="org.jboss.msc"/>
         <module name="org.jboss.vfs"/>
@@ -71,11 +69,7 @@
         <module name="io.undertow.core"/>
         <module name="io.undertow.servlet"/>
         <module name="org.wildfly.transaction.client"/>
-
-        <!-- TODO WFLY-5966 validate the need for these and remove if not needed.
-             Prior to WFLY-5922 they were exported by javax.ejb.api. -->
         <module name="javax.transaction.api"/>
         <module name="javax.xml.rpc.api"/>
-        <module name="javax.rmi.api"/>
     </dependencies>
 </module>

@@ -22,7 +22,7 @@
   -->
 <module name="org.wildfly.clustering.jgroups.api" xmlns="urn:jboss:module:1.5">
     <resources>
-        <resource-root path="wildfly-clustering-jgroups-api-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-clustering-jgroups-api-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

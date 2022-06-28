@@ -22,7 +22,7 @@
   -->
 <module name="com.fasterxml.jackson.core.jackson-databind" xmlns="urn:jboss:module:1.5">
      <resources>
-        <resource-root path="jackson-databind-2.9.5.jar"/>
+        <resource-root path="jackson-databind-2.9.8.jar"/>
     </resources>
 
     <dependencies>

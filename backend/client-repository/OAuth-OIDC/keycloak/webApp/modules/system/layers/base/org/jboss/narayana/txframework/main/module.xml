@@ -27,7 +27,7 @@
     </properties>
 
     <resources>
-        <resource-root path="txframework-5.9.0.Final.jar"/>
+        <resource-root path="txframework-5.9.3.Final.jar"/>
     </resources>
 
     <dependencies>

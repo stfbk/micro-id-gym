@@ -26,7 +26,7 @@
     </properties>
 
     <resources>
-        <resource-root path="wildfly-management-client-content-7.0.0.Final.jar"/>
+        <resource-root path="wildfly-management-client-content-8.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

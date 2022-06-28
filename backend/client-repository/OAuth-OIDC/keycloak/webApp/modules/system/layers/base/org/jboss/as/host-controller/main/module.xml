@@ -29,7 +29,7 @@
     <main-class name="org.jboss.as.host.controller.Main"/>
 
     <resources>
-        <resource-root path="wildfly-host-controller-7.0.0.Final.jar"/>
+        <resource-root path="wildfly-host-controller-8.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

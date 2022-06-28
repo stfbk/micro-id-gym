@@ -36,7 +36,7 @@
     </exports>
 
     <resources>
-        <resource-root path="wildfly-elytron-1.7.0.Final.jar"/>
+        <resource-root path="wildfly-elytron-1.8.0.Final.jar"/>
     </resources>
 
     <dependencies>

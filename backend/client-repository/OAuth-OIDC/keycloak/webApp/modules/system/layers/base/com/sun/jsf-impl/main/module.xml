@@ -42,6 +42,6 @@
     </dependencies>
 
     <resources>
-        <resource-root path="jsf-impl-2.3.5.SP2.jar"/>
+        <resource-root path="jsf-impl-2.3.9.SP01.jar"/>
     </resources>
 </module>

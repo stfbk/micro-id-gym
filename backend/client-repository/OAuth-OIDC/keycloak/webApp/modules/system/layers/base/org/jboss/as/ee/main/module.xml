@@ -31,7 +31,7 @@
     <!-- /exports -->
 
     <resources>
-        <resource-root path="wildfly-ee-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-ee-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

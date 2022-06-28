@@ -28,9 +28,9 @@
 
 
     <resources>
-        <resource-root path="infinispan-hibernate-cache-spi-9.4.3.Final.jar"/>
-        <resource-root path="infinispan-hibernate-cache-commons-9.4.3.Final.jar"/>
-        <resource-root path="infinispan-hibernate-cache-v53-9.4.3.Final.jar"/>
+        <resource-root path="infinispan-hibernate-cache-spi-9.4.8.Final.jar"/>
+        <resource-root path="infinispan-hibernate-cache-commons-9.4.8.Final.jar"/>
+        <resource-root path="infinispan-hibernate-cache-v53-9.4.8.Final.jar"/>
     </resources>
 
     <dependencies>

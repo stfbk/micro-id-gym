@@ -27,7 +27,7 @@
     </properties>
 
     <resources>
-        <resource-root path="jipijapa-eclipselink-15.0.0.Final.jar"/>
+        <resource-root path="jipijapa-eclipselink-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

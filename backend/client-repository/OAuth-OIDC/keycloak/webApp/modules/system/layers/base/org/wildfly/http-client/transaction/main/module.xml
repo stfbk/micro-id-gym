@@ -23,7 +23,7 @@
 <module name="org.wildfly.http-client.transaction" xmlns="urn:jboss:module:1.5">
 
     <resources>
-        <resource-root path="wildfly-http-transaction-client-1.0.12.Final.jar"/>
+        <resource-root path="wildfly-http-transaction-client-1.0.13.Final.jar"/>
     </resources>
 
     <dependencies>

@@ -45,7 +45,7 @@
           <li><b>Tools</b>
             <ul>
               <li> open the terminal and reach the folder <span class="monospace text"><%= filename %>/frontend/tools</span>
-              <li> run <span class="monospace text command">docker-compose up --build</span>
+              <li> run <span class="monospace text command">docker-compose up --build --remove-orphans</span>
               <li> open the browser
               <li> visit <span class="monospace text command">localhost:<%= mscPort %></span> to use the MSC Drawer
               <li> login into the drawer with the password <span class="monospace text command"><%= sessionId %></span>
@@ -60,7 +60,7 @@
                     <li><span class="monospace text command"> 127.0.0.1 client </span>
                   </ul>
               <li> open the terminal and reach the folder <span class="monospace text"><%= filename %>/sut</span>
-              <li> run <span class="monospace text command">docker-compose up --build</span>
+              <li> run <span class="monospace text command">docker-compose up --build --remove-orphans</span>
               <li> open the browser
               <li> visit the Client at <span class="monospace text command">localhost:<%= clientPort %></span>
               <li> visit the Identity Provider at <span class="monospace text command">localhost:<%= idpPort %></span>
@@ -71,7 +71,7 @@
             <ul>
               <li> open the terminal and reach the folder sut
               <li> move to the directory where the docker-compose.yml file is located
-              <li> run docker-compose up --build
+              <li> run docker-compose up --build --remove-orphans
             </ul>
 
 

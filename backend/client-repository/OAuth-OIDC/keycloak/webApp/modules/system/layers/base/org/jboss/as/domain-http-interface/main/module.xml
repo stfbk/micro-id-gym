@@ -30,7 +30,7 @@
     </exports>
 
     <resources>
-        <resource-root path="wildfly-domain-http-interface-7.0.0.Final.jar"/>
+        <resource-root path="wildfly-domain-http-interface-8.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

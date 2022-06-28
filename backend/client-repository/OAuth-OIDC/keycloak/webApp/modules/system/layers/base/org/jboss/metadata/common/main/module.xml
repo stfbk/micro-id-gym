@@ -26,7 +26,7 @@
     </properties>
 
     <resources>
-        <resource-root path="jboss-metadata-common-12.0.0.Final.jar"/>
+        <resource-root path="jboss-metadata-common-13.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

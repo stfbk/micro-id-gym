@@ -26,7 +26,7 @@
     </properties>
 
     <resources>
-        <resource-root path="wildfly-iiop-openjdk-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-iiop-openjdk-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

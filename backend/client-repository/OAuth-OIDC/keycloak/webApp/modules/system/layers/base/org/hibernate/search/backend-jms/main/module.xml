@@ -25,7 +25,7 @@
         <property name="jboss.api" value="private"/>
     </properties>
     <resources>
-        <resource-root path="hibernate-search-backend-jms-5.10.3.Final.jar"/>
+        <resource-root path="hibernate-search-backend-jms-5.10.5.Final.jar"/>
     </resources>
     <dependencies>
         <module name="org.hibernate.search.engine"/>

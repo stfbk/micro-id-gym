@@ -26,7 +26,7 @@
     </properties>
 
     <resources>
-        <resource-root path="wildfly-clustering-ee-infinispan-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-clustering-ee-infinispan-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>

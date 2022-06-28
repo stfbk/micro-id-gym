@@ -27,7 +27,7 @@
     </properties>
 
     <resources>
-        <resource-root path="weld-probe-core-3.0.5.Final.jar"/>
+        <resource-root path="weld-probe-core-3.1.0.Final.jar"/>
     </resources>
 
     <dependencies>

@@ -26,10 +26,10 @@
     </properties>
 
     <resources>
-        <resource-root path="jboss-negotiation-common-3.0.4.Final.jar"/>
-        <resource-root path="jboss-negotiation-extras-3.0.4.Final.jar"/>
-        <resource-root path="jboss-negotiation-ntlm-3.0.4.Final.jar"/>
-        <resource-root path="jboss-negotiation-spnego-3.0.4.Final.jar"/>
+        <resource-root path="jboss-negotiation-common-3.0.5.Final.jar"/>
+        <resource-root path="jboss-negotiation-extras-3.0.5.Final.jar"/>
+        <resource-root path="jboss-negotiation-ntlm-3.0.5.Final.jar"/>
+        <resource-root path="jboss-negotiation-spnego-3.0.5.Final.jar"/>
     </resources>
 
     <dependencies>

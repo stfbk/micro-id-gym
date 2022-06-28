@@ -26,10 +26,11 @@
     </properties>
 
     <resources>
-        <resource-root path="wildfly-microprofile-metrics-smallrye-15.0.0.Final.jar"/>
+        <resource-root path="wildfly-microprofile-metrics-smallrye-16.0.0.Final.jar"/>
     </resources>
 
     <dependencies>
+        <module name="io.prometheus.simpleclient"/>
         <module name="io.smallrye.metrics" export="true"/>
         <module name="io.undertow.core"/>
         <module name="javax.api"/>
