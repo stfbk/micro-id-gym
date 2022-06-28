@@ -13,8 +13,13 @@
   "dependencies": {
     "@patternfly/patternfly": "^1.0.248",
     "@patternfly/react-core": "^2.9.2",
+<<<<<<< HEAD
     "axios": "^0.18.0",
     "moment": "^2.29.2",
+=======
+    "axios": "^0.21.2",
+    "moment": "^2.22.2",
+>>>>>>> dependabot/npm_and_yarn/backend/idp-repository/OAuth-OIDC/keycloak/vulnKeycloak/themes/keycloak-preview/account/resources/axios-0.21.2
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-router-dom": "^4.3.1",
