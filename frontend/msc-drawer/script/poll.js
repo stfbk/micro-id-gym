@@ -27,7 +27,16 @@ function poll(){
           entryCounter = data.length;
           console.log("Entry changed");
           for(i = 0; i < data.length; i++){
-            chart += escapeDiagramString(data[i].from) + "->" + escapeDiagramString(data[i].to) + ":" + escapeDiagramString(data[i].label);
+            var MAX_LABEL_LEN = 60;
+            var str_len = data[i].label.length;
+            var label = data[i].label;
+            if (str_len > MAX_LABEL_LEN) {
+              var left = label.substring(0,MAX_LABEL_LEN/2);
+              var right = label.substring(str_len - MAX_LABEL_LEN/2, str_len);
+              label = left + "..." + right;
+            }
+
+            chart += escapeDiagramString(data[i].from) + "->" + escapeDiagramString(data[i].to) + ":" + escapeDiagramString(label);
             if(data[i].params.length > 0) {
               paramsList = "";
               // jsonParams = JSON.parse(data[i].params)
