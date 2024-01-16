@@ -1,3 +1,5 @@
+This repository has been migrated to a new URL. Please visit the following link for the latest updates: [new URL](https://github.com/stfbk/mig).
+
 # Micro-Id-Gym (MIG)
 
 Micro-Id-Gym (MIG) aims to assist system administrators and testers in the deployment and pen-testing of IdM protocol instances.
